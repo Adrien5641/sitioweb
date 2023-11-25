@@ -1,0 +1,218 @@
+<?php
+session_start();
+include("config.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $usuario = $_POST['usuario'];
+    $contrasena = $_POST['contrasena'];
+
+    $consulta = "SELECT * FROM usuario WHERE usuario = '$usuario' AND contrasena = '$contrasena'";
+    $resultado = $conexion->query($consulta);
+
+    if ($resultado->num_rows == 1) {
+        $usuario_info = $resultado->fetch_assoc();
+        $_SESSION['idusuario'] = $usuario_info['id'];
+        header("location: dashboard.php"); // redirige al panel de control
+    } else {
+        $error = "Usuario o contraseña incorrectos";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Asesorías Psicológicas</title>
+    <style>
+        body {
+            background-color: white; /* Fondo blanco */
+            color: #000000; /* Texto negro */
+            font-family: Arial, sans-serif; /* Tipo de letra */
+        }
+
+        h2 {
+            color: white; /* Azul */
+        }
+
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0000FF; /* Azul */
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #0000FF; /* Azul */
+            color: #FFFFFF; /* Texto blanco */
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #003366; /* Azul oscuro al pasar el ratón */
+        }
+
+        p {
+            color: #FF0000; /* Rojo para mensajes de error */
+        }
+
+   .JOotracaja {
+    width: 220px;
+    height: 230px;
+    top: 2%;
+    right: 50%;
+    transform: translate(65%, 10%);
+    background-size: cover;
+    left: 60%;
+    background-image: url("https://pbs.twimg.com/profile_images/1553035314775691266/txYb1ffm_400x400.jpg");
+}
+
+.JOotracaja2 {
+    color: white;
+    width: 1550px;
+    height: 150px;
+    top: 2%;
+    right: 50%;
+    transform: translate(-1%, -30%);
+    left: 50%;
+    background-color: #003366;
+}
+
+.JOotracaja3 {
+    width: 230px;
+    height: 230px;
+    top: 2%;
+    right: 50%;
+    transform: translate(220%, -100%);
+    background-size: cover;
+    left: 60%;
+    background-color: #003366;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px 20px;
+}
+.JOotracaja5 {
+    width: 200px;
+    height: 210px;
+    top: 2%;
+    right: 50%;
+    transform: translate(-1%, -50%);
+    background-size: cover;
+    left: 60%;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px 20px;
+    background-image: url("https://fastly.4sqi.net/img/general/600x600/87388367_octFS9QHefEAPeDdpMbNBisgcrRgfo0QA4rDl6HXQIU.png");
+}
+
+.boton {
+    width: 100px;
+    height: 20px;
+    top: 2%;
+    right: 50%;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: blue;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transform: translate(300%, -260%);
+    left: 60%;
+    transition: background-color 0.3s ease;
+}
+.boton:hover {
+    background-color: #3c3c3c;
+}
+
+.boton1 {
+    width: 100px;
+    height: 20px;
+    top: 2%;
+    right: 50%;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: blue;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transform: translate(360%, -260%);
+    left: 60%;
+    transition: background-color 0.3s ease;
+}
+
+.boton1:hover {
+    background-color: #3c3c3c;
+}
+
+.boton2 {
+    width: 100px;
+    height: 20px;
+    top: 2%;
+    right: 50%;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: blue;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transform: translate(430%, -260%);
+    left: 60%;
+    transition: background-color 0.3s ease;
+}
+.boton2:hover {
+    background-color: #3c3c3c;
+}
+
+
+    </style>
+</head>
+<body>
+<div class="JOotracaja2"><h1 style="text-align: center;"><br>ASESORIAS PSICOLOGICAS</h1>
+<div class="JOotracaja5"></div>
+</div>
+<div class="boton" id="boton"><strong><em>Datos</em></strong></div>
+<div class="boton1" id="boton1"><strong><em>Asesorias</em></strong></div>
+<div class="boton2" id="boton1"><strong><em>Historial</em></strong></div> 
+<div class="JOotracaja"></div>
+    
+<div class="JOotracaja3">
+    <div class="h2">
+    <h2 style="text-align: center;">Login</h2></div>
+    <form action="" method="post">
+    <label style="color: white;">Usuario:</label>
+        <input type="text" name="usuario" required><br>
+        <label style="color: white;">Contraseña:</label>
+        <input type="password" name="contrasena" required><br>
+        <input type="submit" value="Iniciar sesión">
+    </form>
+    <?php
+    if (isset($error)) {
+        echo "<p>$error</p>";
+    }
+    ?>
+    </div>
+</body>
+</html>
